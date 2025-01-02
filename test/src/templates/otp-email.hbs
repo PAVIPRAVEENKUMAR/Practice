@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+    }
+    
+    .email-container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;
+      align-items: center; 
+      text-align: center; 
+      height: 100%;
+    }
+
+    .email-container h1 {
+      font-size: 24px;
+      color: #000000;
+      margin: 0 0 10px;
+    }
+
+    .email-container p {
+      font-size: 16px;
+      color: #555555;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .otp {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+      margin: 20px 0;
+    }
+
+    .highlight {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .email-footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #777777;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <h1>Hi <span class="highlight">{{name}}</span>,</h1>
+    <p>
+      Use the following OTP to complete your verification process. The OTP is valid for the next 5 minutes.
+    </p>
+    <div class="otp">{{verifyotp}}</div>
+    <p>
+      If you didn’t request this, you can safely ignore this email.
+    </p>
+    <div class="email-footer">
+      Thank you,<br>
+      The Complex Team
+    </div>
+  </div>
+</body>
+</html>
