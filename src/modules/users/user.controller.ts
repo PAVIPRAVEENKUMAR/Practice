@@ -1,6 +1,7 @@
-import { Controller, Post, Body} from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { VerifyOtpDto } from './dto/verify-user.dto';
 
 @Controller('users')
 export class UserController {
@@ -10,8 +11,12 @@ export class UserController {
   async registerUser(
     @Body() createUserDto: CreateUserDto) {
     const { email, password, name } = createUserDto;
+    try{
     await this.userService.registerUser(email, password, name);
     return { message: 'Registration successful, please check your email for verification.' };
+    }catch(error){
+      throw new HttpException('Failed to register the user',HttpStatus.BAD_REQUEST);
+    }
   }
 
   //@Get('verify-email')
@@ -30,12 +35,16 @@ export class UserController {
 //}
 
 @Post('verify-otp')
-  async verifyOtp(@Body() body: { email: string; otp: string }) {
-    const { email, otp } = body;
+  async verifyOtp(@Body() verifyuserDto:VerifyOtpDto) {
+    const { email, otp } = verifyuserDto;
+    try{
+
     const result = await this.userService.verifyOtp(email, otp);
     if (result) {
       return { message: 'OTP verified successfully!' };
     }
-    return { message: 'Invalid or expired OTP.' };
+  }catch(error){
+    throw new HttpException(error.message, error.status || HttpStatus.INTERNAL_SERVER_ERROR);
   }
+}
 }
